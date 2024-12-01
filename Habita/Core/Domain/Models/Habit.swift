@@ -7,24 +7,25 @@
 
 import Foundation
 
-struct Habit: Identifiable, Codable {
-    var id: String?
+struct Habit: Identifiable, Decodable {
+    var id: String
     var name: String
-    var completionDate: String
+    var completionDate: String?
     
-    // No-argument initializer (required for Firebase)
-    init() {
-        self.name = ""
-        self.completionDate = ""
-    }
-    
-    // Custom initializer
-    init(name: String, completionDate: String) {
+    init(id: String = UUID().uuidString, name: String, completionDate: String? = nil) {
+        self.id = id
         self.name = name
         self.completionDate = completionDate
     }
     
-    // Firebase uses this key mapping when storing and retrieving data
+    func toDictionary() -> [String: Any] {
+        return [
+            "id": id,
+            "name": name,
+            "completionDate": completionDate ?? NSNull()
+        ]
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id
         case name

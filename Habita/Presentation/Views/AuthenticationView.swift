@@ -18,6 +18,7 @@ struct AuthenticationView: View {
         NavigationStack {
             VStack {
                 Image("Habita")
+                    .renderingMode(.template)
                     .scaledToFit()
                     .frame(width: (UIScreen.main.bounds.width * 0.5))
                     .foregroundColor(.primary)
